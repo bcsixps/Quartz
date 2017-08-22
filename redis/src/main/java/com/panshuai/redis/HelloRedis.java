@@ -33,11 +33,10 @@ public class HelloRedis {
                            + jedis.get("qq"));
        }
        
-        /**
+    /**
      * redis操作Map
      */
     public static void testMap() {
-        //-----添加数据---------- 
         Map<String, String> map = new HashMap<String, String>();
         map.put("name", "xinxin");
         map.put("age", "22");
