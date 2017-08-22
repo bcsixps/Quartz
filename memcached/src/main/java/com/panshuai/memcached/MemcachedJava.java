@@ -14,7 +14,7 @@ public class MemcachedJava {
          System.out.println("Connection to server sucessful.");
       
          // 存储数据
-         Future fo = mcc.set("test", 9, "test old date");  //9秒后过期
+         Future fo = mcc.set("test", 30, "test old date");  //9秒后过期
       
          // 查看存储状态
          System.out.println("set status:" + fo.get());
@@ -23,7 +23,7 @@ public class MemcachedJava {
          System.out.println("runoob value in cache - " + mcc.get("test"));
 
          // 关闭连接
-         mcc.shutdown();
+//         mcc.shutdown();
          
       }catch(Exception ex){
          System.out.println( ex.getMessage() );
