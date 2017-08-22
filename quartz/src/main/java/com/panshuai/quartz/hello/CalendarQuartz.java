@@ -37,7 +37,7 @@ public class CalendarQuartz {
 		//2，jobDetail & job   
 		JobDetail job = JobBuilder.newJob(HelloQuartzJob.class).withIdentity("HelloQuartzJob").build();
 
-//		//3,定义触发的条件
+		//3,定义触发的条件
 
 		Trigger trigger = TriggerBuilder.newTrigger().withIdentity(new TriggerKey("HelloQuartzJob", "myTriggerGroup"))
 				.withSchedule(CalendarIntervalScheduleBuilder.calendarIntervalSchedule().withIntervalInDays(1)) 
