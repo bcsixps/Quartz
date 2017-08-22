@@ -30,7 +30,6 @@ import org.quartz.impl.StdSchedulerFactory;
 public class CalendarQuartz {
 	public static void main(String[] args) throws SchedulerException {
 
-		
 		//1，获得一个调度器
 		SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 		Scheduler scheduler = schedulerFactory.getScheduler();
