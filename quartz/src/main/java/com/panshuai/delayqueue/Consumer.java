@@ -5,11 +5,8 @@ import java.util.concurrent.DelayQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 
  * 消费者
- * 
  */
-
 public class Consumer implements Runnable {
 
 	private final Object sigLock = new Object();
