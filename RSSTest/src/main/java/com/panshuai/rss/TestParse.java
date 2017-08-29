@@ -33,21 +33,21 @@ public class TestParse {
 //		String rss = "http://www.cngold.org/data/rss/3683.xml";
 		try {
 			URL url = new URL(rss);
-			// ï¿½ï¿½È¡RssÔ´   
+			// ¶ÁÈ¡RssÔ´   
 			XmlReader reader = new XmlReader(url);		
-			System.out.println("RssÔ´ï¿½Ä±ï¿½ï¿½ï¿½ï¿½Ê½Îªï¿½ï¿½" + reader.getEncoding());
+			System.out.println("RssÔ´µÄ±àÂë¸ñÊ½Îª£º" + reader.getEncoding());
 			SyndFeedInput input = new SyndFeedInput();
-			// ï¿½Ãµï¿½SyndFeedï¿½ï¿½ï¿½ó£¬¼ï¿½ï¿½Ãµï¿½RssÔ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢   
+			// µÃµ½SyndFeed¶ÔÏó£¬¼´µÃµ½RssÔ´ÀïµÄËùÓÐÐÅÏ¢   
 			SyndFeed feed = input.build(reader);
 			//System.out.println(feed);			
-			// ï¿½Ãµï¿½Rssï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½   
+			// µÃµ½RssÐÂÎÅÖÐ×ÓÏîÁÐ±í   
 			List entries = feed.getEntries();
-			// Ñ­ï¿½ï¿½ï¿½Ãµï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢   
+			// Ñ­»·µÃµ½Ã¿¸ö×ÓÏîÐÅÏ¢   
 			for (int i = 0; i < entries.size(); i++) {
 				SyndEntry entry = (SyndEntry) entries.get(i);								
-				// ï¿½ï¿½ï¿½â¡¢ï¿½ï¿½ï¿½Óµï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¡¢Ê±ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½RssÔ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É²ï¿½ï¿½ï¿½   
-				System.out.println("ï¿½ï¿½ï¿½â£º" + entry.getTitle());
-				System.out.println("ï¿½ï¿½ï¿½Óµï¿½Ö·ï¿½ï¿½" + entry.getLink());
+				// ±êÌâ¡¢Á¬½ÓµØÖ·¡¢±êÌâ¼ò½é¡¢Ê±¼äÊÇÒ»¸öRssÔ´Ïî×î»ù±¾µÄ×é³É²¿·Ö   
+				System.out.println("±êÌâ£º" + entry.getTitle());
+				System.out.println("Á¬½ÓµØÖ·£º" + entry.getLink());
 				System.out.println("----------------------------"+i+"------------------------------------");
 				Document doc= Jsoup.parse(new URL(entry.getLink()), 0);
 //				Elements elements =  doc.getElementsByClass("qq_article").select(".bd");
@@ -64,27 +64,27 @@ public class TestParse {
 				
 				System.out.println("-----------------------------"+i+"-------------------------------------------");
 				SyndContent description = entry.getDescription();
-				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½é£º" + description.getValue());
-				System.out.println("ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º" + entry.getPublishedDate());	
+				System.out.println("±êÌâ¼ò½é£º" + description.getValue());
+				System.out.println("·¢²¼Ê±¼ä£º" + entry.getPublishedDate());	
 //				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 //				String formatdate = format.format(entry.getPublishedDate());
 //				System.out.println(formatdate);
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½RssÔ´ï¿½ï¿½ï¿½ÈµÄ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
-				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½" + entry.getAuthor());				
-				// ï¿½Ë±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½   
+				// ÒÔÏÂÊÇRssÔ´¿ÉÏÈµÄ¼¸¸ö²¿·Ö   
+				System.out.println("±êÌâµÄ×÷Õß£º" + entry.getAuthor());				
+				// ´Ë±êÌâËùÊôµÄ·¶³ë   
 				List categoryList = entry.getCategories();
 				if (categoryList != null) {
 					for (int m = 0; m < categoryList.size(); m++) {
 						SyndCategory category = (SyndCategory) categoryList.get(m);
-						System.out.println("ï¿½Ë±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ë£º" + category.getName());
+						System.out.println("´Ë±êÌâËùÊôµÄ·¶³ë£º" + category.getName());
 					}
 				}							
-				// ï¿½Ãµï¿½ï¿½ï¿½Ã½ï¿½å²¥ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ð±ï¿½   
+				// µÃµ½Á÷Ã½Ìå²¥·ÅÎÄ¼þµÄÐÅÏ¢ÁÐ±í   
 				List enclosureList = entry.getEnclosures();
 				if (enclosureList != null) {
 					for (int n = 0; n < enclosureList.size(); n++) {
 						SyndEnclosure enclosure = (SyndEnclosure) enclosureList.get(n);
-						System.out.println("ï¿½ï¿½Ã½ï¿½å²¥ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½" + entry.getEnclosures());
+						System.out.println("Á÷Ã½Ìå²¥·ÅÎÄ¼þ£º" + entry.getEnclosures());
 					}
 				}
 				System.out.println();
@@ -100,15 +100,15 @@ public class TestParse {
         String img = "";
         Pattern p_image;
         Matcher m_image;
-        //     String regEx_img = "<img.*src=(.*?)[^>]*?>"; //Í¼Æ¬ï¿½ï¿½ï¿½Óµï¿½Ö·
+        //     String regEx_img = "<img.*src=(.*?)[^>]*?>"; //Í¼Æ¬Á´½ÓµØÖ·
         String regEx_img = "<img.*src\\s*=\\s*(.*?)[^>]*?>";
         p_image = Pattern.compile
                 (regEx_img, Pattern.CASE_INSENSITIVE);
         m_image = p_image.matcher(htmlStr);
         while (m_image.find()) {
-            // ï¿½Ãµï¿½<img />ï¿½ï¿½ï¿½ï¿½
+            // µÃµ½<img />Êý¾Ý
             img = m_image.group();
-            // Æ¥ï¿½ï¿½<img>ï¿½Ðµï¿½srcï¿½ï¿½ï¿½ï¿½
+            // Æ¥Åä<img>ÖÐµÄsrcÊý¾Ý
             Matcher m = Pattern.compile("src\\s*=\\s*\"?(.*?)(\"|>|\\s+)").matcher(img);
             while (m.find()) {
                 pics.add(m.group(1));
