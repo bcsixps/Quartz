@@ -3,6 +3,7 @@ package com.panshuai.rss;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,9 +29,9 @@ public class TestParse {
 		test.parseRss();
 	}
 	public void parseRss() {
-		//String rss = "http://news.baidu.com/n?cmd=1&class=civilnews&tn=rss&sub=0]http://news.baidu.com/n?cmd=1&class=civilnews&tn=rss&sub=0";
-		String rss = "http://news.qq.com/newsgn/rss_newsgn.xml";
+//		String rss = "http://news.qq.com/newsgn/rss_newsgn.xml";
 //		String rss = "http://www.cngold.org/data/rss/3683.xml";
+		String rss = "http://rss.sina.com.cn/news/society/focus15.xml";
 		try {
 			URL url = new URL(rss);
 			// 读取Rss源   
@@ -38,8 +39,7 @@ public class TestParse {
 			System.out.println("Rss源的编码格式为：" + reader.getEncoding());
 			SyndFeedInput input = new SyndFeedInput();
 			// 得到SyndFeed对象，即得到Rss源里的所有信息   
-			SyndFeed feed = input.build(reader);
-			//System.out.println(feed);			
+			SyndFeed feed = input.build(reader);	
 			// 得到Rss新闻中子项列表   
 			List entries = feed.getEntries();
 			// 循环得到每个子项信息   
@@ -51,10 +51,11 @@ public class TestParse {
 				System.out.println("----------------------------"+i+"------------------------------------");
 				Document doc= Jsoup.parse(new URL(entry.getLink()), 0);
 //				Elements elements =  doc.getElementsByClass("qq_article").select(".bd");
-				String elements = doc.select(".Cnt-Main-Article-QQ p").html();
-				
+//				String elements = doc.select(".Cnt-Main-Article-QQ p").html();
+				String elements = doc.select("#artibody p").html();
 				System.out.println(elements);
 				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				// 获取图片url
 				Set<String> srcs = getImgStr(elements);
 				if(srcs.size()>0){
 					for(String src :srcs ){
@@ -65,10 +66,10 @@ public class TestParse {
 				System.out.println("-----------------------------"+i+"-------------------------------------------");
 				SyndContent description = entry.getDescription();
 				System.out.println("标题简介：" + description.getValue());
-				System.out.println("发布时间：" + entry.getPublishedDate());	
-//				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//				String formatdate = format.format(entry.getPublishedDate());
-//				System.out.println(formatdate);
+				Date publishedDate = entry.getPublishedDate();
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				String formatdate = publishedDate == null ? null :  format.format(entry.getPublishedDate());
+				System.out.println("发布时间：" + entry.getPublishedDate());
 				// 以下是Rss源可先的几个部分   
 				System.out.println("标题的作者：" + entry.getAuthor());				
 				// 此标题所属的范畴   
